@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  unifi-controller:
+    image: linuxserver/unifi-controller
+    container_name: unifi-controller
+    ports:
+      - "8080:8080" # Port for UniFi web interface
+      - "8443:8443" # HTTPS port for UniFi web interface
+      - "3478:3478/udp" # UDP port for STUN
+      - "10001:10001/udp" # UDP port for STUN
+      - "1900:1900/udp" # UDP port for UPnP
+      - "6789:6789" # Port for UniFi mobile speed test
+      - "8880:8880" # Port for UniFi Guest Portal HTTP
+      - "8843:8843" # Port for UniFi Guest Portal HTTPS
+      - "3478:3478" # Port for UniFi controller to inform
+      - "8883:8883" # Port for UniFi controller to inform securely
+    volumes:
+      - unifi_data:/config
+    restart: unless-stopped
+
+volumes:
+  unifi_data:
+    driver: local
