@@ -1,24 +1,18 @@
-version: '3.9'
+version: '3'
 
 services:
   unifi-controller:
     image: linuxserver/unifi-controller
     container_name: unifi-controller
     ports:
-      - "8080:8080" # Port for UniFi web interface
-      - "8443:8443" # HTTPS port for UniFi web interface
-      - "3478:3478/udp" # UDP port for STUN
-      - "10001:10001/udp" # UDP port for STUN
-      - "1900:1900/udp" # UDP port for UPnP
-      - "6789:6789" # Port for UniFi mobile speed test
-      - "8880:8880" # Port for UniFi Guest Portal HTTP
-      - "8843:8843" # Port for UniFi Guest Portal HTTPS
-      - "3478:3478" # Port for UniFi controller to inform
-      - "8883:8883" # Port for UniFi controller to inform securely
+      - "8080:8080"  # พอร์ต HTTP portal
+      - "8443:8443"  # พอร์ต HTTPS portal
+      - "3478:3478/udp"  # STUN
+      - "10001:10001/udp"  # พอร์ตในการค้นหาอุปกรณ์
+      - "1900:1900/udp"  # พอร์ต SSDP สำหรับค้นหาอุปกรณ์
+      - "8880:8880"  # พอร์ต HTTP สำหรับแบ็กอัพและแอดมิน
+      - "8843:8843"  # พอร์ต HTTPS สำหรับแบ็กอัพและแอดมิน
+      - "6789:6789"  # พอร์ต speed test
     volumes:
-      - unifi_data:/config
+      - ./unifi_data:/config  # เก็บข้อมูลการกำหนดค่าและข้อมูลของ UniFi Controller
     restart: unless-stopped
-
-volumes:
-  unifi_data:
-    driver: local
